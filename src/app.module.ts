@@ -72,7 +72,7 @@ console.log(`Environment Path is: ${envPath}`);
     InstanceModule,
     StorageModule,
   ],
-  // controllers: [AppController],
-  // providers: [AppService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
