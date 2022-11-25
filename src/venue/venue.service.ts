@@ -75,13 +75,14 @@ export class VenueService {
     try {
       if (!isNaN(Number(id))) {
         const updateVenue = await this.venueRepository.updateVenue(id, updateVenueDto);
-        if (updateVenue) {
+        if (updateVenue !== null && updateVenue !== undefined) {
           VenueService.logger.debug("SUCCESS : venueService.updateVenue", objectToStringForDebug(updateVenue));
           return sendOk(`venue update success, ID: ${updateVenue.id}`, updateVenue);
         }
         VenueService.logger.debug("FAIL : venueService.updateVenue", objectToStringForDebug(updateVenue));
-        return sendFail(`venue update fail, ID: ${updateVenue.id}`, null);
+        return sendFail(`venue update fail, ID: ${id}`, null);
       }
+      return sendFail(`venue update fail, ID: ${id}`, null);
     } catch (e) {
       VenueService.logger.debug("ERROR : venueService.updateVenue", e.message);
       return sendFail(`${e.message}`, null);

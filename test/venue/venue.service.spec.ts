@@ -145,14 +145,13 @@ describe("VenueApiTest", () => {
 
     expect(responseFail.statusCode).toEqual(200);
     expect(responseFail.body.result).toEqual("fail");
-    expect(responseFail.body.message).toEqual("there is no venue info");
+    expect(responseFail.body.message).toEqual("venue update fail, ID: aasdasdasd");
     expect(responseFail.body.data).toEqual(null);
   });
 
   // deleteVenue Test
   it(`service_deleteVenue`, async () => {
     for (let i = 0; i < venueIdArr.length; i++) {
-      console.log(`delete ${venueIdArr[i]}`);
       const response = await request(app.getHttpServer()).delete(`/venue/deleteVenue/${venueIdArr[i]}`).send();
 
       expect(response.statusCode).toEqual(200);
@@ -163,7 +162,7 @@ describe("VenueApiTest", () => {
     const responseFail = await request(app.getHttpServer()).delete(`/venue/deleteVenue/asdvsdvasdc`).send();
 
     expect(responseFail.statusCode).toEqual(200);
-    expect(responseFail.body.message).toEqual("there is no venue info");
+    expect(responseFail.body.message).toEqual("venue delete fail, ID: asdvsdvasdc");
     expect(responseFail.body.data).toEqual(null);
   });
 });
