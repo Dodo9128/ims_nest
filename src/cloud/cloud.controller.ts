@@ -14,28 +14,30 @@ export class CloudController {
 
   @CreateCloud()
   async create(@Body() createCloudDto: CreateCloudDto, @Res() res: Response) {
-    const result: IResultReturn = await this.cloudService.createCloud(createCloudDto);
+    const result: IResultReturn = await this.cloudService.create(createCloudDto);
     return res.status(HttpStatus.OK).json(result);
     // return this.cloudService.create(createCloudDto);
   }
 
   @FindAllClouds()
-  findAll() {
-    return this.cloudService.findAll();
+  async findAll(@Res() res: Response) {
+    const result: IResultReturn = await this.cloudService.findAll();
+    // return this.cloudService.findAll();
+    return res.status(HttpStatus.OK).json(result);
   }
 
   @FindOneCloud()
   findOne(@Param("id") id: string) {
-    return this.cloudService.findOne(+id);
+    return this.cloudService.findOne(id);
   }
 
   @UpdateCloud()
   update(@Param("id") id: string, @Body() updateCloudDto: UpdateCloudDto) {
-    return this.cloudService.update(+id, updateCloudDto);
+    return this.cloudService.update(id, updateCloudDto);
   }
 
   @DeleteCloud()
   remove(@Param("id") id: string) {
-    return this.cloudService.remove(+id);
+    return this.cloudService.remove(id);
   }
 }

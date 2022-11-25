@@ -59,8 +59,7 @@ export class VenueRepository extends Repository<Venue> {
     if (updateVenue.description) {
       venue.description = updateVenue.description;
     }
-    const currentDate = new Date();
-    venue.updatedAt = currentDate;
+    venue.updatedAt = new Date();
     return await this.save(venue);
   }
 

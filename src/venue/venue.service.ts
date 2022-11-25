@@ -20,7 +20,7 @@ export class VenueService {
     private venueRepository: VenueRepository,
   ) {}
 
-  async createVenue(venueData: CreateVenueDto): Promise<IResultReturn> {
+  async create(venueData: CreateVenueDto): Promise<IResultReturn> {
     try {
       const currentVenueList = await this.venueRepository.findWholeVenue();
       const totalVenueLength = currentVenueList.length;
