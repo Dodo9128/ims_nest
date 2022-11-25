@@ -1,6 +1,6 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import * as request from "supertest";
-import { AppModule } from "../../src/app.module";
+import { AppModule } from "../../../src/app.module";
 import { INestApplication } from "@nestjs/common";
 
 process.env.NODE_ENV = "test";
@@ -162,6 +162,7 @@ describe("VenueApiTest", () => {
     const responseFail = await request(app.getHttpServer()).delete(`/venue/deleteVenue/asdvsdvasdc`).send();
 
     expect(responseFail.statusCode).toEqual(200);
+    expect(responseFail.body.result).toEqual("fail");
     expect(responseFail.body.message).toEqual("venue delete fail, ID: asdvsdvasdc");
     expect(responseFail.body.data).toEqual(null);
   });

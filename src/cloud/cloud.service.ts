@@ -15,7 +15,11 @@ export class CloudService {
       const currentCloudList = await this.cloudRepository.findWholeCloud();
       const totalCloudLength = currentCloudList.length;
 
-      cloudData.id = String(totalCloudLength + 1);
+      if (totalCloudLength > 0) {
+        cloudData.id = String(totalCloudLength + 1);
+      } else {
+        cloudData.id = String(1);
+      }
       // cloudData.storage = "[]";
 
       const createAndSaveNewCloud = await this.cloudRepository.createAndSaveCloud(cloudData);
@@ -47,7 +51,7 @@ export class CloudService {
 
   async findOne(idOrName: string): Promise<IResultReturn> {
     try {
-      const findOneCloud = await this.cloudRepository.findOneByIdOrName(idOrName.toString());
+      const findOneCloud = await this.cloudRepository.findOneByIdOrName(idOrName);
       if (findOneCloud) {
         CloudService.logger.debug("SUCCESS : cloudService.findOneCloud", objectToStringForDebug(findOneCloud));
         return sendOk(`cloud info`, findOneCloud);
@@ -71,6 +75,8 @@ export class CloudService {
         CloudService.logger.debug("FAIL : cloudService.updateCloud", objectToStringForDebug(updateCloud));
         return sendFail(`cloud update fail, ID: ${id}`, null);
       }
+      CloudService.logger.debug("FAIL : cloudService.updateCloud", objectToStringForDebug(updateCloudDto));
+      return sendFail(`cloud update fail, ID: ${id}`, null);
     } catch (e) {
       CloudService.logger.debug("ERROR : cloudService.updateCloud", e.message);
       return sendFail(`${e.message}`, null);

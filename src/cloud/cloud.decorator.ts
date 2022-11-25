@@ -40,7 +40,7 @@ export const FindAllClouds = () =>
 
 export const FindOneCloud = () =>
   applyDecorators(
-    Get("getCloud/:id"),
+    Get("getCloud/:idOrName"),
     ApiOperation({
       summary: "ID or Name으로 클라우드 정보 탐색",
       description: "ID 혹은 Name을 입력해 해당하는 클라우드 정보를 반환한다",

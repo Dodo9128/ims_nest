@@ -56,9 +56,12 @@ export class CloudRepository extends Repository<Cloud> {
       cloud.instance = updateCloud.instance;
     }
     if (updateCloud.storage) {
-      const storageArr = JSON.parse(cloud.storage);
-      storageArr.push(updateCloud.storage);
-      cloud.storage = JSON.stringify(storageArr);
+      // const storageArr = JSON.parse(cloud.storage);
+      // storageArr.push(updateCloud.storage);
+      // cloud.storage = JSON.stringify(storageArr);
+
+      // cloud.storage = JSON.stringify(updateCloud.storage);
+      cloud.storage = updateCloud.storage;
     }
     cloud.updatedAt = new Date();
     return await this.save(cloud);

@@ -17,6 +17,6 @@ export class CreateCloudDto {
   instance: string;
 
   @IsString()
-  @ApiProperty({ description: "클라우드에서 제공하는 데이터 저장소명", example: ["mediastore", "S3"] })
+  @ApiProperty({ description: "클라우드에서 제공하는 데이터 저장소명", example: "['mediastore', 'S3']" })
   storage: string;
 }
