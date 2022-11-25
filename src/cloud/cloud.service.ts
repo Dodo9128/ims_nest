@@ -28,7 +28,6 @@ export class CloudService {
       CloudService.logger.debug("ERROR : cloudService.createCloud", e.message);
       return sendFail(`${e.message}`, null);
     }
-    // return "This action adds a new cloud";
   }
 
   async findAll(): Promise<IResultReturn> {
@@ -46,9 +45,6 @@ export class CloudService {
     }
   }
 
-  // findOne(id: number) {
-  //   return `This action returns a #${id} cloud`;
-  // }
   async findOne(idOrName: string): Promise<IResultReturn> {
     try {
       const findOneCloud = await this.cloudRepository.findOneByIdOrName(idOrName.toString());
@@ -65,7 +61,6 @@ export class CloudService {
   }
 
   async update(id: string, updateCloudDto: UpdateCloudDto) {
-    // return `This action updates a #${id} cloud`;
     try {
       if (!isNaN(Number(id))) {
         const updateCloud = await this.cloudRepository.updateCloud(id, updateCloudDto);
@@ -82,7 +77,18 @@ export class CloudService {
     }
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} cloud`;
+  async remove(id: string): Promise<IResultReturn> {
+    try {
+      const removeCloud = await this.cloudRepository.removeCloud(id);
+      if (removeCloud !== null) {
+        CloudService.logger.debug("SUCCESS : cloudService.removeCloud", objectToStringForDebug(removeCloud));
+        return sendOk(`cloud remove success, ID: ${id}`, removeCloud);
+      }
+      CloudService.logger.debug("FAIL : cloudService.removeCloud", objectToStringForDebug(removeCloud));
+      return sendFail(`cloud remove fail, ID: ${id}`, null);
+    } catch (e) {
+      CloudService.logger.debug("ERROR : cloudService.removeCloud", e.message);
+      return sendFail(`${e.message}`, null);
+    }
   }
 }

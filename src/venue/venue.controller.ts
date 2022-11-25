@@ -5,7 +5,7 @@ import { UpdateVenueDto } from "./dto/updateVenue.dto";
 import { ApiTags } from "@nestjs/swagger";
 import { IResultReturn } from "../libs/utils/functionReturn";
 import { Response } from "express";
-import { CreateVenue, DeleteVenue, FindAllVenues, FindOneVenue, UpdateVenue } from "./venue.decorator";
+import { CreateVenue, RemoveVenue, FindAllVenues, FindOneVenue, UpdateVenue } from "./venue.decorator";
 
 @Controller("venue")
 @ApiTags("Venue")
@@ -41,7 +41,7 @@ export class VenueController {
     // return this.venueService.update(id, updateVenueDto);
   }
 
-  @DeleteVenue()
+  @RemoveVenue()
   async remove(@Param("id") id: string, @Res() res: Response) {
     const result: IResultReturn = await this.venueService.remove(id);
     return res.status(HttpStatus.OK).json(result);

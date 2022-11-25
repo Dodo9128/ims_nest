@@ -91,7 +91,7 @@ export class VenueService {
 
   async remove(id: string): Promise<IResultReturn> {
     try {
-      const deleteVenue = await this.venueRepository.deleteVenue(id);
+      const deleteVenue = await this.venueRepository.removeVenue(id);
       if (deleteVenue !== null) {
         VenueService.logger.debug("SUCCESS : venueService.deleteVenue", objectToStringForDebug(deleteVenue));
         return sendOk(`venue delete success, ID: ${id}`, deleteVenue);

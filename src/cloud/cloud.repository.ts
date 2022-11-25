@@ -63,4 +63,17 @@ export class CloudRepository extends Repository<Cloud> {
     cloud.updatedAt = new Date();
     return await this.save(cloud);
   }
+
+  /**
+   * ID를 매개로 클라우드를 탐색하여 삭제한다.
+   *
+   * @param {string} [id]
+   */
+  async removeCloud(id: string): Promise<Cloud> | null {
+    const cloud = await this.findOneBy({ id: id });
+    if (cloud === null) {
+      return null;
+    }
+    return await this.remove(cloud);
+  }
 }

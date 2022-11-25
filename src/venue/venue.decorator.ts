@@ -107,7 +107,7 @@ export const UpdateVenue = () =>
     }),
   );
 
-export const DeleteVenue = () =>
+export const RemoveVenue = () =>
   applyDecorators(
     Delete("deleteVenue/:id"),
     // ApiTags("Venue"),

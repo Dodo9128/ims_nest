@@ -84,7 +84,7 @@ export const UpdateCloud = () =>
     }),
   );
 
-export const DeleteCloud = () =>
+export const RemoveCloud = () =>
   applyDecorators(
     Delete("deleteCloud/:id"),
     // ApiTags("Cloud"),

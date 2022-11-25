@@ -68,7 +68,7 @@ export class VenueRepository extends Repository<Venue> {
    *
    * @param {string} [id]
    */
-  async deleteVenue(id: string): Promise<Venue> | null {
+  async removeVenue(id: string): Promise<Venue> | null {
     const venue = await this.findOneBy({ id: id });
     if (venue === null) {
       return null;
