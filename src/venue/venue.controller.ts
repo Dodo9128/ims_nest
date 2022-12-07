@@ -1,4 +1,4 @@
-import { Controller, Body, Param, Res, HttpStatus } from "@nestjs/common";
+import { Controller, Body, Param, Res, HttpStatus, UseFilters } from "@nestjs/common";
 import { VenueService } from "./venue.service";
 import { CreateVenueDto } from "./dto/createVenue.dto";
 import { UpdateVenueDto } from "./dto/updateVenue.dto";
@@ -6,6 +6,7 @@ import { ApiTags } from "@nestjs/swagger";
 import { IResultReturn } from "../libs/utils/functionReturn";
 import { Response } from "express";
 import { CreateVenue, RemoveVenue, FindAllVenues, FindOneVenue, UpdateVenue } from "./venue.decorator";
+import { HttpExceptionFilter } from "../libs/utils/globalErrorHandler";
 
 @Controller("venue")
 @ApiTags("Venue")

@@ -25,3 +25,11 @@ export const sendFail = (msg: string, data: object) => {
 export const objectToStringForDebug = (result: object) => {
   return JSON.stringify(result);
 };
+
+export const currentTimeMaker = () => {
+  const offset = new Date().getTimezoneOffset() * 60000;
+
+  const currentTime = new Date(new Date().getTime() - offset).toISOString();
+
+  return `${currentTime.substring(0, 10)} ${currentTime.substring(11, 19)}`;
+};

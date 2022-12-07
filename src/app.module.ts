@@ -1,6 +1,5 @@
-import { Module } from "@nestjs/common";
+import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
-import { TypeOrmModule } from "@nestjs/typeorm";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { EventModule } from "./event/event.module";
@@ -22,6 +21,8 @@ import { SoftwareModule } from "./software/software.module";
 import { InstanceModule } from "./instance/instance.module";
 import { StorageModule } from "./storage/storage.module";
 import configuration from "../config/configuration";
+import { LoggerMiddleware } from "./libs/middlewares/logger.middleware";
+import { VenueController } from "./venue/venue.controller";
 
 const node_env = process.env.NODE_ENV || "development";
 
@@ -75,4 +76,9 @@ console.log(`Environment Path is: ${envPath}`);
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    // consumer.apply(LoggerMiddleware).forRoutes("*");
+    consumer.apply(LoggerMiddleware).forRoutes(VenueController);
+  }
+}

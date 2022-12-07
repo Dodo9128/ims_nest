@@ -1,12 +1,15 @@
-import { Injectable, Logger } from "@nestjs/common";
+import { HttpException, Injectable, Logger } from "@nestjs/common";
 import { CreateCloudDto } from "./dto/createCloud.dto";
 import { UpdateCloudDto } from "./dto/updateCloud.dto";
 import { IResultReturn, sendOk, sendFail, objectToStringForDebug } from "../libs/utils/functionReturn";
 import { CloudRepository } from "./cloud.repository";
+import { LoggerService } from "../../config/winstonConfiguration";
+import { makeErrorInfoObjForHttpException } from "../libs/utils/globalErrorHandler";
 
 @Injectable()
 export class CloudService {
-  private static readonly logger = new Logger(CloudService.name);
+  // private static readonly logger = new Logger(CloudService.name);
+  private static readonly logger = new LoggerService(CloudService.name);
 
   constructor(private cloudRepository: CloudRepository) {}
 
@@ -24,13 +27,15 @@ export class CloudService {
 
       const createAndSaveNewCloud = await this.cloudRepository.createAndSaveCloud(cloudData);
       if (createAndSaveNewCloud) {
-        CloudService.logger.debug("SUCCESS : cloudService.createCLoud", createAndSaveNewCloud);
+        // CloudService.logger.debug("SUCCESS : cloudService.createCLoud", createAndSaveNewCloud);
         return sendOk(`new cloud add`, createAndSaveNewCloud);
       }
       return sendFail(`new cloud add fail`, null);
     } catch (e) {
-      CloudService.logger.debug("ERROR : cloudService.createCloud", e.message);
-      return sendFail(`${e.message}`, null);
+      // CloudService.logger.error("ERROR : cloudService.createCloud", e.message);
+      // return sendFail(`${e.message}`, null);
+      const errorInfo = makeErrorInfoObjForHttpException(CloudService.name, "createCloud", e);
+      throw new HttpException(errorInfo, 200);
     }
   }
 
@@ -38,14 +43,16 @@ export class CloudService {
     try {
       const findAllClouds = await this.cloudRepository.findWholeCloud();
       if (findAllClouds) {
-        CloudService.logger.debug("SUCCESS : cloudService.findAllClouds", objectToStringForDebug(findAllClouds));
+        // CloudService.logger.debug("SUCCESS : cloudService.findAllClouds", objectToStringForDebug(findAllClouds));
         return sendOk(`return whole cloud info`, findAllClouds);
       }
-      CloudService.logger.debug("FAIL : cloudService.findAllClouds", objectToStringForDebug(findAllClouds));
+      // CloudService.logger.debug("FAIL : cloudService.findAllClouds", objectToStringForDebug(findAllClouds));
       return sendFail(`return whole cloud info fail`, null);
     } catch (e) {
-      CloudService.logger.debug("ERROR : cloudService.findAllClouds", e.message);
-      return sendFail(`${e.message}`, null);
+      // CloudService.logger.error("ERROR : cloudService.findAllClouds", e.message);
+      // return sendFail(`${e.message}`, null);
+      const errorInfo = makeErrorInfoObjForHttpException(CloudService.name, "findAll", e);
+      throw new HttpException(errorInfo, 200);
     }
   }
 
@@ -53,14 +60,16 @@ export class CloudService {
     try {
       const findOneCloud = await this.cloudRepository.findOneByIdOrName(idOrName);
       if (findOneCloud) {
-        CloudService.logger.debug("SUCCESS : cloudService.findOneCloud", objectToStringForDebug(findOneCloud));
+        // CloudService.logger.debug("SUCCESS : cloudService.findOneCloud", objectToStringForDebug(findOneCloud));
         return sendOk(`cloud info`, findOneCloud);
       }
-      CloudService.logger.debug("FAIL : cloudService.findOneCloud", objectToStringForDebug(findOneCloud));
+      // CloudService.logger.debug("FAIL : cloudService.findOneCloud", objectToStringForDebug(findOneCloud));
       return sendFail(`there is no cloud info`, null);
     } catch (e) {
-      CloudService.logger.debug("ERROR : cloudService.findOneCloud", e.message);
-      return sendFail(`${e.message}`, null);
+      // CloudService.logger.error("ERROR : cloudService.findOneCloud", e.message);
+      // return sendFail(`${e.message}`, null);
+      const errorInfo = makeErrorInfoObjForHttpException(CloudService.name, "findOne", e);
+      throw new HttpException(errorInfo, 200);
     }
   }
 
@@ -69,17 +78,19 @@ export class CloudService {
       if (!isNaN(Number(id))) {
         const updateCloud = await this.cloudRepository.updateCloud(id, updateCloudDto);
         if (updateCloud !== null && updateCloud !== undefined) {
-          CloudService.logger.debug("SUCCESS : cloudService.updateCloud", objectToStringForDebug(updateCloud));
+          // CloudService.logger.debug("SUCCESS : cloudService.updateCloud", objectToStringForDebug(updateCloud));
           return sendOk(`cloud update success, ID: ${updateCloud.id}`, updateCloud);
         }
-        CloudService.logger.debug("FAIL : cloudService.updateCloud", objectToStringForDebug(updateCloud));
+        // CloudService.logger.debug("FAIL : cloudService.updateCloud", objectToStringForDebug(updateCloud));
         return sendFail(`cloud update fail, ID: ${id}`, null);
       }
-      CloudService.logger.debug("FAIL : cloudService.updateCloud", objectToStringForDebug(updateCloudDto));
+      // CloudService.logger.debug("FAIL : cloudService.updateCloud", objectToStringForDebug(updateCloudDto));
       return sendFail(`cloud update fail, ID: ${id}`, null);
     } catch (e) {
-      CloudService.logger.debug("ERROR : cloudService.updateCloud", e.message);
-      return sendFail(`${e.message}`, null);
+      // CloudService.logger.error("ERROR : cloudService.updateCloud", e.message);
+      // return sendFail(`${e.message}`, null);
+      const errorInfo = makeErrorInfoObjForHttpException(CloudService.name, "updateCloud", e);
+      throw new HttpException(errorInfo, 200);
     }
   }
 
@@ -87,14 +98,16 @@ export class CloudService {
     try {
       const removeCloud = await this.cloudRepository.removeCloud(id);
       if (removeCloud !== null) {
-        CloudService.logger.debug("SUCCESS : cloudService.removeCloud", objectToStringForDebug(removeCloud));
+        // CloudService.logger.debug("SUCCESS : cloudService.removeCloud", objectToStringForDebug(removeCloud));
         return sendOk(`cloud remove success, ID: ${id}`, removeCloud);
       }
-      CloudService.logger.debug("FAIL : cloudService.removeCloud", objectToStringForDebug(removeCloud));
+      // CloudService.logger.debug("FAIL : cloudService.removeCloud", objectToStringForDebug(removeCloud));
       return sendFail(`cloud remove fail, ID: ${id}`, null);
     } catch (e) {
-      CloudService.logger.debug("ERROR : cloudService.removeCloud", e.message);
-      return sendFail(`${e.message}`, null);
+      // CloudService.logger.error("ERROR : cloudService.removeCloud", e.message);
+      // return sendFail(`${e.message}`, null);
+      const errorInfo = makeErrorInfoObjForHttpException(CloudService.name, "deleteCloud", e);
+      throw new HttpException(errorInfo, 200);
     }
   }
 }

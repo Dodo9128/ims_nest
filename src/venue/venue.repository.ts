@@ -18,7 +18,11 @@ export class VenueRepository extends Repository<Venue> {
    * @param {CreateVenueDto} [venue] 베뉴
    */
   async createAndSaveVenue(venue: CreateVenueDto): Promise<Venue> {
-    return await this.save(venue);
+    const newVenue = await this.save(venue);
+    if (!newVenue) {
+      throw new Error(`${venue.name} Venue create fail`);
+    }
+    return newVenue;
   }
 
   /**
@@ -48,6 +52,9 @@ export class VenueRepository extends Repository<Venue> {
    */
   async updateVenue(id: string, updateVenue: UpdateVenueDto): Promise<Venue> | null {
     const venue = await this.findOneBy({ id: id });
+    if (!venue) {
+      throw new Error(`venueId ${id} Venue not found`);
+    }
     if (updateVenue.systemId) {
       const systemIdArr = JSON.parse(venue.systems);
       systemIdArr.push(updateVenue.systemId);

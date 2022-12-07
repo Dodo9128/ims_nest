@@ -1,6 +1,8 @@
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import { setupSwagger } from "./libs/utils/swagger";
+import { HttpExceptionFilter } from "./libs/utils/globalErrorHandler";
+// import { winstonLogger } from "../config/winstonConfiguration";
 // import * as dotenv from "dotenv";
 // import * as path from "path";
 //
@@ -36,10 +38,13 @@ import { setupSwagger } from "./libs/utils/swagger";
 //       : ".env.development",
 //   ),
 // });
-
+//
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    // logger: winstonLogger,
+  });
   setupSwagger(app);
+  app.useGlobalFilters(new HttpExceptionFilter());
   await app.listen(process.env.SERVER_PORT);
 }
 void bootstrap();
