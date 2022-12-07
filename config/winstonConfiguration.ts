@@ -1,57 +1,3 @@
-// import { utilities, WinstonModule } from "nest-winston";
-// import * as winstonDaily from "winston-daily-rotate-file";
-// import * as winston from "winston";
-//
-// const env = process.env.NODE_ENV;
-// const logDir = __dirname + "/../logs";
-//
-// const dailyOptions = (level: string) => {
-//   return {
-//     level,
-//     datePattern: "YYYY-MM-DD",
-//     dirname: logDir + `/${level}`,
-//     filename: `%DATE%.${level}.log`,
-//     maxFiles: 30,
-//     maxSize: "20m",
-//     zippedArchive: true,
-//   };
-// };
-//
-// /**
-//  * Winston Log Level
-//  * {
-//  *   error: 0,
-//  *   warn: 1,
-//  *   info: 2,
-//  *   http: 3,
-//  *   verbose: 4,
-//  *   debug: 5,
-//  *   silly: 6,
-//  * }
-//  */
-//
-// export const winstonLogger = WinstonModule.createLogger({
-//   transports: [
-//     new winston.transports.Console({
-//       level: env === "production" ? "http" : "silly",
-//       // production 이면 http, 개발환경은 모든 단계 로깅
-//       format:
-//         env === "production"
-//           ? winston.format.simple()
-//           : winston.format.combine(
-//               winston.format.timestamp(),
-//               utilities.format.nestLike("IMS_NODE", {
-//                 prettyPrint: true,
-//               }),
-//             ),
-//     }),
-//
-//     // info, warn, error 로그는 파일로 관리
-//     new winstonDaily(dailyOptions("info")),
-//     new winstonDaily(dailyOptions("warn")),
-//     new winstonDaily(dailyOptions("error")),
-//   ],
-// });
 import { LoggerService as LS } from "@nestjs/common";
 
 import * as winston from "winston";
@@ -61,32 +7,19 @@ import * as winstonDaily from "winston-daily-rotate-file";
 const { simple, errors, combine, timestamp, printf, json, colorize } = winston.format;
 
 const env = process.env.NODE_ENV;
-// const logDir = __dirname + "/../../logs";
-//
-// const dailyOptions = (level: string) => {
-//   return {
-//     level,
-//     datePattern: "YYYY-MM-DD",
-//     dirname: logDir + `/${level}`,
-//     filename: `%DATE%.${level}.log`,
-//     maxFiles: 30,
-//     maxSize: "20m",
-//     zippedArchive: true,
-//   };
-// };
 
 let logDir: string;
 let dailyOptions;
 
 switch (env) {
-  case "test":
-    logDir = __dirname + "/../../testLogs";
+  case "local":
+    logDir = __dirname + "/../../localLogs";
     dailyOptions = (level: string) => {
       return {
         level,
         datePattern: "YYYY-MM-DD",
         dirname: logDir + `/${level}`,
-        filename: `%DATE%.${level}.test.log`,
+        filename: `%DATE%.${level}.local.log`,
         maxFiles: 30,
         maxSize: "20m",
         zippedArchive: true,
@@ -110,6 +43,19 @@ switch (env) {
     break;
 }
 
+// /**
+//  * Winston Log Level
+//  * {
+//  *   error: 0,
+//  *   warn: 1,
+//  *   info: 2,
+//  *   http: 3,
+//  *   verbose: 4,
+//  *   debug: 5,
+//  *   silly: 6,
+//  * }
+//  */
+
 export class LoggerService implements LS {
   private logger: winston.Logger;
 
@@ -127,9 +73,7 @@ export class LoggerService implements LS {
                   timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
                   printf(({ level, message, timestamp }) => {
                     return `${timestamp}:${level}:${message}`;
-                    // return `${timestamp}:${message}:${level}`;
                   }),
-                  // printf(info => `${info.timestamp} ${info.service} ${info.level} ${info.message}`),
                   json(),
                   colorize(),
                   nestWinstonModuleUtilities.format.nestLike(service, {

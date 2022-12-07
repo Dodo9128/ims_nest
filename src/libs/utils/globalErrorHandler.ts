@@ -12,8 +12,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const request = ctx.getRequest<Request>();
     const status = exception.getStatus();
 
-    // console.log(exception.getResponse());
-
     const exceptionObj = exception.getResponse();
 
     let serviceName;
@@ -25,15 +23,8 @@ export class HttpExceptionFilter implements ExceptionFilter {
       serviceFunc = exceptionObj["name"];
       errorObj = exceptionObj["error"];
     }
-    //
-    // const offset = new Date().getTimezoneOffset() * 60000;
-    //
-    // const currentTime = new Date(new Date().getTime() - offset).toISOString();
-    //
-    // const timestamp = `${currentTime.substring(0, 10)} ${currentTime.substring(11, 19)}}`;
 
     const timestamp = currentTimeMaker();
-    // this.logger.httpexception(exception.message, status);
     this.logger.httpException(serviceName, serviceFunc, errorObj, status, timestamp);
 
     response

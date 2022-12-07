@@ -26,6 +26,11 @@ export const objectToStringForDebug = (result: object) => {
   return JSON.stringify(result);
 };
 
+/**
+ * current Timezone timestamp maker
+ *
+ * @return "YYYY-MM-DD HH:mm:ss"
+ */
 export const currentTimeMaker = () => {
   const offset = new Date().getTimezoneOffset() * 60000;
 
