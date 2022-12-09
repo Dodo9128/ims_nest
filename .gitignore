@@ -5,6 +5,7 @@
 # Logs
 logs
 testLogs
+localLogs
 *.log
 npm-debug.log*
 pnpm-debug.log*

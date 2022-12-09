@@ -8,16 +8,26 @@ import {
   OneToOne,
   JoinColumn,
 } from "typeorm";
-import { NodeCategory } from "./nodeCategory.entity";
+// import { NodeCategory } from "./nodeCategory.entity";
+import { Cloud } from "./cloud.entity";
+import { System } from "./system.entity";
 
 @Entity()
 export class Storage {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(type => NodeCategory, nodeCategory => nodeCategory.type)
+  // @OneToOne(type => NodeCategory, nodeCategory => nodeCategory.type)
+  // @JoinColumn()
+  // type: NodeCategory;
+
+  @ManyToOne(type => Cloud, cloud => cloud.id)
   @JoinColumn()
-  type: NodeCategory;
+  cloud: Cloud;
+
+  @ManyToOne(type => System, system => system.id)
+  @JoinColumn()
+  system: System;
 
   @Column()
   name: string;

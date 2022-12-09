@@ -15,8 +15,8 @@ import { ChannelModule } from "./channel/channel.module";
 import { AudioModule } from "./audio/audio.module";
 import { VideoModule } from "./video/video.module";
 import { AdaptiveModule } from "./adaptive/adaptive.module";
-import { NodeModule } from "./node/node.module";
-import { NodeCategoryModule } from "./nodeCategory/nodeCategory.module";
+// import { NodeModule } from "./node/node.module";
+// import { NodeCategoryModule } from "./nodeCategory/nodeCategory.module";
 import { SoftwareModule } from "./software/software.module";
 import { InstanceModule } from "./instance/instance.module";
 import { StorageModule } from "./storage/storage.module";
@@ -26,8 +26,8 @@ import { VenueController } from "./venue/venue.controller";
 import { EventController } from "./event/event.controller";
 import { ScaleController } from "./scale/scale.controller";
 import { CloudController } from "./cloud/cloud.controller";
-import { NodeController } from "./node/node.controller";
-import { NodeCategoryController } from "./nodeCategory/nodeCategory.controller";
+// import { NodeController } from "./node/node.controller";
+// import { NodeCategoryController } from "./nodeCategory/nodeCategory.controller";
 import { AdaptiveController } from "./adaptive/adaptive.controller";
 import { AudioController } from "./audio/audio.controller";
 import { ChannelController } from "./channel/channel.controller";
@@ -83,8 +83,8 @@ console.log(`Environment Path is: ${envPath}`);
     AudioModule,
     VideoModule,
     AdaptiveModule,
-    NodeModule,
-    NodeCategoryModule,
+    // NodeModule,
+    // NodeCategoryModule,
     SoftwareModule,
     InstanceModule,
     StorageModule,
@@ -99,8 +99,8 @@ export class AppModule implements NestModule {
     consumer.apply(LoggerMiddleware).forRoutes(EventController);
     consumer.apply(LoggerMiddleware).forRoutes(ScaleController);
     consumer.apply(LoggerMiddleware).forRoutes(CloudController);
-    consumer.apply(LoggerMiddleware).forRoutes(NodeController);
-    consumer.apply(LoggerMiddleware).forRoutes(NodeCategoryController);
+    // consumer.apply(LoggerMiddleware).forRoutes(NodeController);
+    // consumer.apply(LoggerMiddleware).forRoutes(NodeCategoryController);
     consumer.apply(LoggerMiddleware).forRoutes(EventController);
     consumer.apply(LoggerMiddleware).forRoutes(AdaptiveController);
     consumer.apply(LoggerMiddleware).forRoutes(AudioController);

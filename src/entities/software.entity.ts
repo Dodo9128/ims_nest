@@ -8,16 +8,21 @@ import {
   OneToOne,
   JoinColumn,
 } from "typeorm";
-import { NodeCategory } from "./nodeCategory.entity";
+import { System } from "./system.entity";
+// import { NodeCategory } from "./nodeCategory.entity";
 
 @Entity()
 export class Software {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(type => NodeCategory, nodeCategory => nodeCategory.type)
+  // @OneToOne(type => NodeCategory, nodeCategory => nodeCategory.type)
+  // @JoinColumn()
+  // type: NodeCategory;
+
+  @ManyToOne(type => System, system => system.id)
   @JoinColumn()
-  type: NodeCategory;
+  system: System;
 
   @Column()
   region: string;
