@@ -15,8 +15,6 @@ import { ChannelModule } from "./channel/channel.module";
 import { AudioModule } from "./audio/audio.module";
 import { VideoModule } from "./video/video.module";
 import { AdaptiveModule } from "./adaptive/adaptive.module";
-// import { NodeModule } from "./node/node.module";
-// import { NodeCategoryModule } from "./nodeCategory/nodeCategory.module";
 import { SoftwareModule } from "./software/software.module";
 import { InstanceModule } from "./instance/instance.module";
 import { StorageModule } from "./storage/storage.module";
@@ -26,8 +24,6 @@ import { VenueController } from "./venue/venue.controller";
 import { EventController } from "./event/event.controller";
 import { ScaleController } from "./scale/scale.controller";
 import { CloudController } from "./cloud/cloud.controller";
-// import { NodeController } from "./node/node.controller";
-// import { NodeCategoryController } from "./nodeCategory/nodeCategory.controller";
 import { AdaptiveController } from "./adaptive/adaptive.controller";
 import { AudioController } from "./audio/audio.controller";
 import { ChannelController } from "./channel/channel.controller";
@@ -39,6 +35,8 @@ import { SoftwareController } from "./software/software.controller";
 import { StorageController } from "./storage/storage.controller";
 import { SystemController } from "./system/system.controller";
 import { VideoController } from "./video/video.controller";
+import { WebVenueController } from "./api/controller/webVenue.controller";
+import { WebModule } from "./api/web.module";
 
 const node_env = process.env.NODE_ENV || "development";
 
@@ -88,7 +86,9 @@ console.log(`Environment Path is: ${envPath}`);
     SoftwareModule,
     InstanceModule,
     StorageModule,
+    WebModule,
   ],
+  // root Endpoint로 접속하는 것에 대한 response 만들어야 함
   controllers: [AppController],
   providers: [AppService],
 })
@@ -99,8 +99,6 @@ export class AppModule implements NestModule {
     consumer.apply(LoggerMiddleware).forRoutes(EventController);
     consumer.apply(LoggerMiddleware).forRoutes(ScaleController);
     consumer.apply(LoggerMiddleware).forRoutes(CloudController);
-    // consumer.apply(LoggerMiddleware).forRoutes(NodeController);
-    // consumer.apply(LoggerMiddleware).forRoutes(NodeCategoryController);
     consumer.apply(LoggerMiddleware).forRoutes(EventController);
     consumer.apply(LoggerMiddleware).forRoutes(AdaptiveController);
     consumer.apply(LoggerMiddleware).forRoutes(AudioController);
@@ -113,5 +111,6 @@ export class AppModule implements NestModule {
     consumer.apply(LoggerMiddleware).forRoutes(StorageController);
     consumer.apply(LoggerMiddleware).forRoutes(SystemController);
     consumer.apply(LoggerMiddleware).forRoutes(VideoController);
+    consumer.apply(LoggerMiddleware).forRoutes(WebVenueController);
   }
 }

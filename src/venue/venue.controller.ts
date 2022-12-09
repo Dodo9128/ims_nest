@@ -2,23 +2,44 @@ import { Controller, Body, Param, Res, HttpStatus, UseFilters, UseInterceptors, 
 import { VenueService } from "./venue.service";
 import { CreateVenueDto } from "./dto/createVenue.dto";
 import { UpdateVenueDto } from "./dto/updateVenue.dto";
-import { ApiTags } from "@nestjs/swagger";
+import { ApiExcludeController, ApiTags } from "@nestjs/swagger";
 import { IResultReturn } from "../libs/utils/functionReturn";
 import { Response } from "express";
 import { CreateVenue, RemoveVenue, FindAllVenues, FindOneVenue, UpdateVenue, UpLoadIMSExcel } from "./venue.decorator";
 import { FileInterceptor } from "@nestjs/platform-express";
 import * as XLSX from "xlsx";
 
+@ApiExcludeController()
 @Controller("venue")
 @ApiTags("Venue")
 export class VenueController {
   constructor(private readonly venueService: VenueService) {}
 
-  @CreateVenue()
-  async create(@Body() createVenueDto: CreateVenueDto, @Res() res: Response) {
-    const result: IResultReturn = await this.venueService.create(createVenueDto);
+  // @CreateVenue()
+  // async create(@Body() createVenueDto: CreateVenueDto, @Res() res: Response) {
+  //   const result: IResultReturn = await this.venueService.create(createVenueDto);
+  //
+  //   return res.status(HttpStatus.OK).json(result);
+  // }
 
-    return res.status(HttpStatus.OK).json(result);
+  /**
+   * venue endpoint는 Swagger 노출 X(외부에서 사용하지 않도록)
+   * web/venue 밑으로 venueController 사용할 수 있도록 설정 중
+   */
+
+  /**
+   * Venue Create Request
+   * @param {CreateVenueDto} [createVenueDto] 베뉴 생성 object
+   */
+  public create: (createVenueDto: CreateVenueDto) => Promise<IResultReturn> = async (
+    createVenueDto: CreateVenueDto,
+  ) => {
+    return await this.venueService.create(createVenueDto);
+  };
+
+  @CreateVenue()
+  async createVenue(@Body() createVenueDto: CreateVenueDto, @Res() res: Response) {
+    return res.status(HttpStatus.OK).json(await this.create(createVenueDto));
   }
 
   @FindAllVenues()
@@ -73,6 +94,8 @@ export class VenueController {
       const values = Object.keys(row).map(key => row[key]);
       console.log(values);
     }
-    return res.status(HttpStatus.OK).json(workbook);
+    // return res.status(HttpStatus.OK).json(workbook);
+    const wbout = XLSX.write(workbook, { bookType: "xlsx", type: "base64" });
+    return res.end(Buffer.from(wbout, "base64"));
   }
 }
