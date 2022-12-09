@@ -131,3 +131,5 @@ export const RemoveVenue = () =>
       },
     }),
   );
+
+export const UpLoadIMSExcel = () => applyDecorators(Post("uploadIMSExcel"));
