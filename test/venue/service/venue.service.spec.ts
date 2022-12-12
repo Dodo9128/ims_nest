@@ -37,6 +37,7 @@ describe("VenueApiTest", () => {
     const response = await request(app.getHttpServer()).post("/venue/insertVenue").send({
       name: "API_TEST_VENUE_1",
       description: "API_TEST_VENUE_DESCRIPTION_1",
+      isLocal: false,
     });
 
     expect(response.statusCode).toEqual(200);
@@ -45,6 +46,7 @@ describe("VenueApiTest", () => {
     expect(response.body.data).not.toEqual(null);
     expect(response.body.data.name).toEqual("API_TEST_VENUE_1");
     expect(response.body.data.description).toEqual("API_TEST_VENUE_DESCRIPTION_1");
+    expect(response.body.data.isLocal).toEqual(false);
 
     venueIdArr.push(response.body.data.id);
     venueNameArr.push(response.body.data.name);
@@ -67,6 +69,7 @@ describe("VenueApiTest", () => {
         .send({
           name: `API_TEST_VENUE_${i}`,
           description: `API_TEST_VENUE_DESCRIPTION_${i}`,
+          isLocal: false,
         });
     }
 

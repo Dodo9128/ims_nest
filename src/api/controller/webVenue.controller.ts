@@ -13,7 +13,7 @@ export class WebVenueController {
 
   @CreateVenue()
   async create(@Body() createVenueDto: CreateVenueDto, @Res() res: Response) {
-    const result: IResultReturn = await this.venueController.create(createVenueDto);
+    const result: IResultReturn = await this.venueController.insertVenue(createVenueDto);
 
     // return VenueController.create(createVenueDto);
     return res.status(HttpStatus.OK).json(result);

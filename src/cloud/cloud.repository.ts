@@ -52,17 +52,17 @@ export class CloudRepository extends Repository<Cloud> {
     if (updateCloud.name) {
       cloud.name = updateCloud.name;
     }
-    if (updateCloud.instance) {
-      cloud.instance = updateCloud.instance;
-    }
-    if (updateCloud.storage) {
-      // const storageArr = JSON.parse(cloud.storage);
-      // storageArr.push(updateCloud.storage);
-      // cloud.storage = JSON.stringify(storageArr);
-
-      // cloud.storage = JSON.stringify(updateCloud.storage);
-      cloud.storage = updateCloud.storage;
-    }
+    // if (updateCloud.instance) {
+    //   cloud.instance = updateCloud.instance;
+    // }
+    // if (updateCloud.storage) {
+    //   // const storageArr = JSON.parse(cloud.storage);
+    //   // storageArr.push(updateCloud.storage);
+    //   // cloud.storage = JSON.stringify(storageArr);
+    //
+    //   // cloud.storage = JSON.stringify(updateCloud.storage);
+    //   cloud.storage = updateCloud.storage;
+    // }
     cloud.updatedAt = new Date();
     return await this.save(cloud);
   }

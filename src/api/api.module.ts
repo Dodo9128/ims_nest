@@ -38,4 +38,4 @@ import { StorageModule } from "../storage/storage.module";
   controllers: [WebVenueController],
   // providers: [],
 })
-export class WebModule {}
+export class ApiModule {}

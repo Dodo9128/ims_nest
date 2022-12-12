@@ -1,24 +1,24 @@
-import { IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsBoolean, IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 
 export class CreateVenueDto {
-  @IsOptional()
-  @IsString()
-  @ApiPropertyOptional({ description: "베뉴 ID", example: 1 })
-  id: string;
-
-  @IsString()
   @IsNotEmpty()
-  @ApiProperty({ description: "베뉴 이름", example: "TEST_VENUE_1" })
+  @IsString()
+  @ApiProperty({ description: "베뉴 이름", required: true, example: "TEST_VENUE_1" })
   readonly name: string;
 
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty({ description: "베뉴 설명", example: "TEST_VENUE_DESCRIPTION" })
-  readonly description: string;
-
   @IsOptional()
   @IsString()
-  @ApiPropertyOptional({ description: "베뉴가 가지고 있는 시스템 아이디 목록", example: "[1, 2]", default: "[]" })
-  systems: string;
+  @ApiPropertyOptional({ description: "베뉴 설명", required: false, default: "", example: "TEST_VENUE_DESCRIPTION" })
+  readonly description: string;
+
+  @IsBoolean()
+  @IsNotEmpty()
+  @ApiProperty({
+    description: "클라우드 / 로컬 환경 구분 _ default: false (클라우드 환경 default)",
+    default: false,
+    required: true,
+    example: false,
+  })
+  readonly isLocal: boolean;
 }

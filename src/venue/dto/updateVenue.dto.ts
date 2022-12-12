@@ -1,6 +1,6 @@
 import { PartialType } from "@nestjs/mapped-types";
 import { CreateVenueDto } from "./createVenue.dto";
-import { IsNumber, IsOptional, IsString } from "class-validator";
+import { IsBoolean, IsOptional, IsString } from "class-validator";
 import { ApiPropertyOptional } from "@nestjs/swagger";
 
 export class UpdateVenueDto extends PartialType(CreateVenueDto) {
@@ -13,9 +13,8 @@ export class UpdateVenueDto extends PartialType(CreateVenueDto) {
   @IsString()
   @ApiPropertyOptional({ description: "베뉴 설명", example: "UPDATE_VENUE_DESCRIPTION_FOR_TEST" })
   readonly description: string;
-
   @IsOptional()
-  @IsNumber()
-  @ApiPropertyOptional({ description: "베뉴에 포함될 시스템 ID", example: "1" })
-  readonly systemId: number;
+  @IsBoolean()
+  @ApiPropertyOptional({ description: "클라우드 / 로컬 환경 구분", example: true })
+  readonly isLocal: boolean;
 }

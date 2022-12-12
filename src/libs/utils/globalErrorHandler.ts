@@ -17,14 +17,25 @@ export class HttpExceptionFilter implements ExceptionFilter {
     let serviceName;
     let serviceFunc;
     let errorObj;
+    const timestamp = currentTimeMaker();
 
-    if (exceptionObj) {
+    // class-validator 를 위한 error format
+    if (exceptionObj["statusCode"] === 400) {
+      serviceName = `Validation Error : ${exceptionObj["error"]}`;
+      serviceFunc = request.url;
+      errorObj = { message: exceptionObj["message"] };
+    } else {
       serviceName = exceptionObj["service"];
       serviceFunc = exceptionObj["name"];
       errorObj = exceptionObj["error"];
     }
 
-    const timestamp = currentTimeMaker();
+    // if (exceptionObj) {
+    //   serviceName = exceptionObj["service"];
+    //   serviceFunc = exceptionObj["name"];
+    //   errorObj = exceptionObj["error"];
+    // }
+
     this.logger.httpException(serviceName, serviceFunc, errorObj, status, timestamp);
 
     response

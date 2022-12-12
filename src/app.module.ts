@@ -1,4 +1,6 @@
-import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
+import configuration from "../config/configuration";
+import { MiddlewareConsumer, Module, NestModule, ValidationPipe } from "@nestjs/common";
+import { APP_PIPE } from "@nestjs/core";
 import { ConfigModule } from "@nestjs/config";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
@@ -18,7 +20,6 @@ import { AdaptiveModule } from "./adaptive/adaptive.module";
 import { SoftwareModule } from "./software/software.module";
 import { InstanceModule } from "./instance/instance.module";
 import { StorageModule } from "./storage/storage.module";
-import configuration from "../config/configuration";
 import { LoggerMiddleware } from "./libs/middlewares/logger.middleware";
 import { VenueController } from "./venue/venue.controller";
 import { EventController } from "./event/event.controller";
@@ -36,7 +37,7 @@ import { StorageController } from "./storage/storage.controller";
 import { SystemController } from "./system/system.controller";
 import { VideoController } from "./video/video.controller";
 import { WebVenueController } from "./api/controller/webVenue.controller";
-import { WebModule } from "./api/web.module";
+import { ApiModule } from "./api/api.module";
 
 const node_env = process.env.NODE_ENV || "development";
 
@@ -86,11 +87,17 @@ console.log(`Environment Path is: ${envPath}`);
     SoftwareModule,
     InstanceModule,
     StorageModule,
-    WebModule,
+    ApiModule,
   ],
   // root Endpoint로 접속하는 것에 대한 response 만들어야 함
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    {
+      provide: APP_PIPE,
+      useClass: ValidationPipe,
+    },
+    AppService,
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

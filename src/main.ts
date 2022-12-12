@@ -2,6 +2,7 @@ import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import { setupSwagger } from "./libs/utils/swagger";
 import { HttpExceptionFilter } from "./libs/utils/globalErrorHandler";
+import { ValidationPipe } from "@nestjs/common";
 
 async function bootstrap() {
   const startTime = process.hrtime();
@@ -10,6 +11,12 @@ async function bootstrap() {
   process.title = process.env.HOSTNAME;
 
   setupSwagger(app);
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      stopAtFirstError: true,
+    }),
+  );
   app.useGlobalFilters(new HttpExceptionFilter());
   const serverStart = await app.listen(process.env.SERVER_PORT);
   if (serverStart) {

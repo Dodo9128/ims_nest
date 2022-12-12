@@ -24,14 +24,14 @@ export class VenueController {
 
   /**
    * venue endpoint는 Swagger 노출 X(외부에서 사용하지 않도록)
-   * web/venue 밑으로 venueController 사용할 수 있도록 설정 중
+   * TODO web/venue 밑으로 venueController 사용할 수 있도록 설정 중
    */
 
   /**
    * Venue Create Request
    * @param {CreateVenueDto} [createVenueDto] 베뉴 생성 object
    */
-  public create: (createVenueDto: CreateVenueDto) => Promise<IResultReturn> = async (
+  public insertVenue: (createVenueDto: CreateVenueDto) => Promise<IResultReturn> = async (
     createVenueDto: CreateVenueDto,
   ) => {
     return await this.venueService.create(createVenueDto);
@@ -39,7 +39,7 @@ export class VenueController {
 
   @CreateVenue()
   async createVenue(@Body() createVenueDto: CreateVenueDto, @Res() res: Response) {
-    return res.status(HttpStatus.OK).json(await this.create(createVenueDto));
+    return res.status(HttpStatus.OK).json(await this.insertVenue(createVenueDto));
   }
 
   @FindAllVenues()

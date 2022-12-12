@@ -18,7 +18,7 @@ export class VenueRepository extends Repository<Venue> {
    * @param {CreateVenueDto} [venue] 베뉴
    */
   async createAndSaveVenue(venue: CreateVenueDto): Promise<Venue> {
-    const newVenue = await this.save(venue);
+    const newVenue: CreateVenueDto & Venue = await this.save(venue);
     if (!newVenue) {
       throw new Error(`${venue.name} Venue create fail`);
     }
@@ -55,11 +55,11 @@ export class VenueRepository extends Repository<Venue> {
     if (!venue) {
       throw new Error(`venueId ${id} Venue not found`);
     }
-    if (updateVenue.systemId) {
-      const systemIdArr = JSON.parse(venue.systems);
-      systemIdArr.push(updateVenue.systemId);
-      venue.systems = JSON.stringify(systemIdArr);
-    }
+    // if (updateVenue.systemId) {
+    // const systemIdArr = JSON.parse(venue.systems);
+    // systemIdArr.push(updateVenue.systemId);
+    // venue.systems = JSON.stringify(systemIdArr);
+    // }
     if (updateVenue.name) {
       venue.name = updateVenue.name;
     }

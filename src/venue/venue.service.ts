@@ -14,12 +14,6 @@ export class VenueService {
 
   async create(venueData: CreateVenueDto): Promise<IResultReturn> {
     try {
-      const currentVenueList = await this.venueRepository.findWholeVenue();
-      const totalVenueLength = currentVenueList.length;
-
-      venueData.id = String(totalVenueLength + 1);
-      venueData.systems = "[]";
-
       const createAndSaveNewVenue = await this.venueRepository.createAndSaveVenue(venueData);
       if (createAndSaveNewVenue) {
         return sendOk(`new venue add`, createAndSaveNewVenue);
