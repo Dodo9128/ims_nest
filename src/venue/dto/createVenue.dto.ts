@@ -2,8 +2,12 @@ import { IsBoolean, IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 
 export class CreateVenueDto {
-  @IsNotEmpty()
+  /**
+   * Annotation 은 아래에서부터 검증
+   * 아래부터 필수조건 채워서 작성
+   */
   @IsString()
+  @IsNotEmpty()
   @ApiProperty({ description: "베뉴 이름", required: true, example: "TEST_VENUE_1" })
   readonly name: string;
 

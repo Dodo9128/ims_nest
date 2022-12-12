@@ -18,6 +18,7 @@ export class VenueService {
       if (createAndSaveNewVenue) {
         return sendOk(`new venue add`, createAndSaveNewVenue);
       }
+      // create 실패 시 repository에서 throw Error 하기 때문에 타지 않는 로직
       return sendFail(`new venue add fail`, null);
     } catch (e) {
       const errorInfo = makeErrorInfoObjForHttpException(VenueService.name, "createVenue", e);
@@ -31,6 +32,8 @@ export class VenueService {
       if (findAllVenue) {
         return sendOk(`return whole venue info`, findAllVenue);
       }
+      // 결과값이 없어도 [] 반환하기 때문에 타지 않을 로직
+      // fail 난다면 db와의 커넥션을 의심해야 함, 그 전에 다른 throw Error로 exception 처리될 것
       return sendFail(`return whole venue info fail`, null);
     } catch (e) {
       const errorInfo = makeErrorInfoObjForHttpException(VenueService.name, "findAll", e);

@@ -21,9 +21,9 @@ export class Instance {
   // @JoinColumn()
   // type: NodeCategory;
 
-  @ManyToOne(type => Cloud, cloud => cloud.id)
-  @JoinColumn()
-  cloud: Cloud;
+  // @ManyToOne(type => Cloud, cloud => cloud.id)
+  // @JoinColumn()
+  // cloud: Cloud;
 
   @ManyToOne(type => System, system => system.id)
   @JoinColumn()

@@ -10,6 +10,7 @@ export class VenueRepository extends Repository<Venue> {
    *  모든 베뉴 목록을 반환한다
    */
   async findWholeVenue(): Promise<Venue[]> {
+    // 결과값이 없더라도 [] 반환
     return await this.find();
   }
 

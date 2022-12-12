@@ -63,7 +63,7 @@ describe("VenueApiTest", () => {
 
     const beforeLength: number = response.body.data.length;
 
-    for (let i = 2; i < 6; i++) {
+    for (let i = venueIdArr[0]; i < venueIdArr[0] + 4; i++) {
       const makeFewVenue = await request(app.getHttpServer())
         .post("/venue/insertVenue")
         .send({
@@ -84,7 +84,7 @@ describe("VenueApiTest", () => {
     expect(afterLength - beforeLength).toEqual(4);
 
     response2.body.data.map(x => {
-      if (x.id !== 1) {
+      if (x.id !== venueIdArr[0]) {
         venueIdArr.push(x.id);
         venueNameArr.push(x.name);
       }
@@ -100,8 +100,13 @@ describe("VenueApiTest", () => {
       expect(response.body.result).toEqual("ok");
       expect(response.body.message).toEqual("venue info");
       expect(response.body.data.id).toEqual(Number(`${venueIdArr[i]}`));
-      expect(response.body.data.name).toEqual(`API_TEST_VENUE_${venueIdArr[i]}`);
-      expect(response.body.data.description).toEqual(`API_TEST_VENUE_DESCRIPTION_${venueIdArr[i]}`);
+      if (i === 0) {
+        expect(response.body.data.name).toEqual(`API_TEST_VENUE_1`);
+        expect(response.body.data.description).toEqual(`API_TEST_VENUE_DESCRIPTION_1`);
+      } else {
+        expect(response.body.data.name).toEqual(`API_TEST_VENUE_${venueIdArr[i] - 1}`);
+        expect(response.body.data.description).toEqual(`API_TEST_VENUE_DESCRIPTION_${venueIdArr[i] - 1}`);
+      }
     }
 
     for (let i = 0; i < venueNameArr.length; i++) {

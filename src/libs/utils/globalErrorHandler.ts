@@ -23,7 +23,8 @@ export class HttpExceptionFilter implements ExceptionFilter {
     if (exceptionObj["statusCode"] === 400) {
       serviceName = `Validation Error : ${exceptionObj["error"]}`;
       serviceFunc = request.url;
-      errorObj = { message: exceptionObj["message"] };
+      // 2개 이상의 validation 체크 시 우선되는 1개의 에러만 return 하기 위함
+      errorObj = { message: exceptionObj["message"][0] };
     } else {
       serviceName = exceptionObj["service"];
       serviceFunc = exceptionObj["name"];
