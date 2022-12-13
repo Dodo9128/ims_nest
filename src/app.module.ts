@@ -96,7 +96,7 @@ console.log(`Environment Path is: ${envPath}`);
       provide: APP_PIPE,
       useClass: ValidationPipe,
     },
-    AppService,
+    // AppService,
   ],
 })
 export class AppModule implements NestModule {

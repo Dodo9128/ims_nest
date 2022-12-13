@@ -1,7 +1,7 @@
 import { applyDecorators, Delete, Get, Patch, Post } from "@nestjs/common";
 import { ApiBody, ApiOkResponse, ApiOperation, ApiResponse, ApiTags, getSchemaPath } from "@nestjs/swagger";
-import { UpdateVenueDto } from "./dto/updateVenue.dto";
-import { CreateVenueDto } from "./dto/createVenue.dto";
+import { UpdateVenueDto } from "../../venue/dto/updateVenue.dto";
+import { CreateVenueDto } from "../../venue/dto/createVenue.dto";
 import {
   createVenueFailResult,
   createVenueSuccessResult,
@@ -13,7 +13,7 @@ import {
   findOneVenueSuccessResult,
   updateVenueFailResult,
   updateVenueSuccessResult,
-} from "./dto/venueResultProperties.swagger";
+} from "../../venue/dto/venueResultProperties.swagger";
 
 export const CreateVenue = () =>
   applyDecorators(
