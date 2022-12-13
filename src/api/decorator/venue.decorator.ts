@@ -15,6 +15,21 @@ import {
   updateVenueSuccessResult,
 } from "../swaggerResultProperties/venueResultProperties.swagger";
 
+import { SwaggerPropertiesBuilder } from "../../libs/utils/swaggerPropertiesBuilder";
+
+const createVenueResult = new SwaggerPropertiesBuilder()
+  .makeResult("ok")
+  .makeMessage("new venue add")
+  .makeData({
+    id: 1,
+    name: "TEST_VENUE_1",
+    description: "TEST_VENUE_DESCRIPTION",
+    isLocal: false,
+    updatedAt: "2022-11-23T09:33:17.554Z",
+    registeredAt: "2022-11-23T09:33:17.554Z",
+  })
+  .build();
+
 export const CreateVenue = () =>
   applyDecorators(
     Post("insertVenue"),
@@ -24,7 +39,8 @@ export const CreateVenue = () =>
       description: "베뉴 생성 요청 성공",
       schema: {
         type: "object",
-        properties: createVenueSuccessResult,
+        // properties: createVenueSuccessResult,
+        properties: createVenueResult.return(),
       },
     }),
     ApiResponse({
