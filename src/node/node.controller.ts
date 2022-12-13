@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/commo
 import { NodeService } from "./node.service";
 import { CreateNodeDto } from "./dto/create-node.dto";
 import { UpdateNodeDto } from "./dto/update-node.dto";
+import { ApiExcludeController } from "@nestjs/swagger";
 
+@ApiExcludeController()
 @Controller("node")
 export class NodeController {
   constructor(private readonly nodeService: NodeService) {}

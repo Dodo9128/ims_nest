@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/commo
 import { SystemService } from "./system.service";
 import { CreateSystemDto } from "./dto/create-system.dto";
 import { UpdateSystemDto } from "./dto/update-system.dto";
+import { ApiExcludeController } from "@nestjs/swagger";
 
+@ApiExcludeController()
 @Controller("system")
 export class SystemController {
   constructor(private readonly systemService: SystemService) {}

@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/commo
 import { ScaleService } from "./scale.service";
 import { CreateScaleDto } from "./dto/create-scale.dto";
 import { UpdateScaleDto } from "./dto/update-scale.dto";
+import { ApiExcludeController } from "@nestjs/swagger";
 
+@ApiExcludeController()
 @Controller("scale")
 export class ScaleController {
   constructor(private readonly scaleService: ScaleService) {}

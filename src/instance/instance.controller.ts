@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/commo
 import { InstanceService } from "./instance.service";
 import { CreateInstanceDto } from "./dto/create-instance.dto";
 import { UpdateInstanceDto } from "./dto/update-instance.dto";
+import { ApiExcludeController } from "@nestjs/swagger";
 
+@ApiExcludeController()
 @Controller("instance")
 export class InstanceController {
   constructor(private readonly instanceService: InstanceService) {}

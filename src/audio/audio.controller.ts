@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/commo
 import { AudioService } from "./audio.service";
 import { CreateAudioDto } from "./dto/create-audio.dto";
 import { UpdateAudioDto } from "./dto/update-audio.dto";
+import { ApiExcludeController } from "@nestjs/swagger";
 
+@ApiExcludeController()
 @Controller("audio")
 export class AudioController {
   constructor(private readonly audioService: AudioService) {}

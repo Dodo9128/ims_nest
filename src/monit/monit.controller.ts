@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/commo
 import { MonitService } from "./monit.service";
 import { CreateMonitDto } from "./dto/create-monit.dto";
 import { UpdateMonitDto } from "./dto/update-monit.dto";
+import { ApiExcludeController } from "@nestjs/swagger";
 
+@ApiExcludeController()
 @Controller("monit")
 export class MonitController {
   constructor(private readonly monitService: MonitService) {}

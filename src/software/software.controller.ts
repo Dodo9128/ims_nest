@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/commo
 import { SoftwareService } from "./software.service";
 import { CreateSoftwareDto } from "./dto/create-software.dto";
 import { UpdateSoftwareDto } from "./dto/update-software.dto";
+import { ApiExcludeController } from "@nestjs/swagger";
 
+@ApiExcludeController()
 @Controller("software")
 export class SoftwareController {
   constructor(private readonly softwareService: SoftwareService) {}

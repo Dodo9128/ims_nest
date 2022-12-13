@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/commo
 import { NodeCategoryService } from "./nodeCategory.service";
 import { CreateNodeCategoryDto } from "./dto/create-node_category.dto";
 import { UpdateNodeCategoryDto } from "./dto/update-node_category.dto";
+import { ApiExcludeController } from "@nestjs/swagger";
 
+@ApiExcludeController()
 @Controller("node-category")
 export class NodeCategoryController {
   constructor(private readonly nodeCategoryService: NodeCategoryService) {}

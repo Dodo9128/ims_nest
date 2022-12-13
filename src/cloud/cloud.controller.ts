@@ -2,11 +2,12 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Res, HttpStatus } fr
 import { CloudService } from "./cloud.service";
 import { CreateCloudDto } from "./dto/createCloud.dto";
 import { UpdateCloudDto } from "./dto/updateCloud.dto";
-import { ApiTags } from "@nestjs/swagger";
+import { ApiExcludeController, ApiTags } from "@nestjs/swagger";
 import { IResultReturn } from "../libs/utils/functionReturn";
 import { Response } from "express";
 import { CreateCloud, UpdateCloud, FindAllClouds, FindOneCloud, RemoveCloud } from "./cloud.decorator";
 
+@ApiExcludeController()
 @Controller("cloud")
 @ApiTags("Cloud")
 export class CloudController {

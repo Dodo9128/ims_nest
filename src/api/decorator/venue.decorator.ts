@@ -13,7 +13,7 @@ import {
   findOneVenueSuccessResult,
   updateVenueFailResult,
   updateVenueSuccessResult,
-} from "../../venue/dto/venueResultProperties.swagger";
+} from "../swaggerResultProperties/venueResultProperties.swagger";
 
 export const CreateVenue = () =>
   applyDecorators(
