@@ -21,7 +21,7 @@ export class SwaggerProperties {
     this.data = data;
   }
 
-  return(): TSwaggerPropertiesContainer {
+  public return(): TSwaggerPropertiesContainer {
     return {
       result: this.result,
       message: this.message,
@@ -31,23 +31,23 @@ export class SwaggerProperties {
 }
 
 export class SwaggerPropertiesBuilder {
-  public result: ISwaggerProperties = {
+  private readonly result: ISwaggerProperties = {
     type: "string",
     description: "",
     example: "",
   };
-  public message: ISwaggerProperties = {
+  private readonly message: ISwaggerProperties = {
     type: "string",
     description: "message",
     example: null,
   };
-  public data: ISwaggerProperties = {
+  private readonly data: ISwaggerProperties = {
     type: "Object",
     description: "data",
     example: null,
   };
 
-  makeOkObj(message, data): this {
+  public makeOkObj(message, data): this {
     this.result.description = "result OK";
     this.result.example = "ok";
     this.message.example = message;
@@ -56,7 +56,7 @@ export class SwaggerPropertiesBuilder {
     return this;
   }
 
-  makeFailObj(message): this {
+  public makeFailObj(message): this {
     this.result.description = "result Fail";
     this.result.example = "fail";
     this.message.example = message;
@@ -66,7 +66,7 @@ export class SwaggerPropertiesBuilder {
     return this;
   }
 
-  build(): SwaggerProperties {
+  public build(): SwaggerProperties {
     return new SwaggerProperties(this.result, this.message, this.data);
   }
 }
