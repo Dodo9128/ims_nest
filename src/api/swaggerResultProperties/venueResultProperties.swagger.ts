@@ -1,9 +1,7 @@
 import { SwaggerPropertiesBuilder } from "../../libs/utils/swaggerPropertiesBuilder";
 
 const createVenueSuccessBuilder = new SwaggerPropertiesBuilder()
-  .makeResult("ok")
-  .makeMessage("new venue add")
-  .makeData({
+  .makeOkObj("new venue add", {
     id: 1,
     name: "TEST_VENUE_1",
     description: "TEST_VENUE_DESCRIPTION",
@@ -13,16 +11,10 @@ const createVenueSuccessBuilder = new SwaggerPropertiesBuilder()
   })
   .build();
 
-const createVenueFailBuilder = new SwaggerPropertiesBuilder()
-  .makeResult("fail")
-  .makeMessage("new venue add fail")
-  .makeData(null)
-  .build();
+const createVenueFailBuilder = new SwaggerPropertiesBuilder().makeFailObj("new venue add fail").build();
 
 const findAllVenueSuccessBuilder = new SwaggerPropertiesBuilder()
-  .makeResult("ok")
-  .makeMessage("return whole venue info")
-  .makeData([
+  .makeOkObj("return whole venue info", [
     {
       id: 1,
       name: "test1",
@@ -42,16 +34,10 @@ const findAllVenueSuccessBuilder = new SwaggerPropertiesBuilder()
   ])
   .build();
 
-const findAllVenueFailBuilder = new SwaggerPropertiesBuilder()
-  .makeResult("fail")
-  .makeMessage("return whole venue info fail")
-  .makeData(null)
-  .build();
+const findAllVenueFailBuilder = new SwaggerPropertiesBuilder().makeFailObj("return whold venue info fail").build();
 
 const findOneVenueSuccessBuilder = new SwaggerPropertiesBuilder()
-  .makeResult("ok")
-  .makeMessage("venue info")
-  .makeData({
+  .makeOkObj("venue info", {
     id: 1,
     name: "TEST_VENUE_1",
     description: "TEST_VENUE_DESCRIPTION",
@@ -61,16 +47,10 @@ const findOneVenueSuccessBuilder = new SwaggerPropertiesBuilder()
   })
   .build();
 
-const findOneVenueFailBuilder = new SwaggerPropertiesBuilder()
-  .makeResult("fail")
-  .makeMessage("there is no venue info")
-  .makeData(null)
-  .build();
+const findOneVenueFailBuilder = new SwaggerPropertiesBuilder().makeFailObj("there is no venue info").build();
 
 const updateVenueSuccessBuilder = new SwaggerPropertiesBuilder()
-  .makeResult("ok")
-  .makeMessage("venue update success, ID: 1")
-  .makeData({
+  .makeOkObj("venue update success, ID: 1", {
     id: 1,
     name: "TEST_VENUE_1",
     isLocal: false,
@@ -80,16 +60,10 @@ const updateVenueSuccessBuilder = new SwaggerPropertiesBuilder()
   })
   .build();
 
-const updateVenueFailBuilder = new SwaggerPropertiesBuilder()
-  .makeResult("fail")
-  .makeMessage("venue update fail, ID: 1")
-  .makeData(null)
-  .build();
+const updateVenueFailBuilder = new SwaggerPropertiesBuilder().makeFailObj("venue update fail, ID: 1").build();
 
 const deleteVenueSuccessBuilder = new SwaggerPropertiesBuilder()
-  .makeResult("ok")
-  .makeMessage("venue delete success, ID: 1")
-  .makeData({
+  .makeOkObj("venue delete success, ID: 1", {
     id: 1,
     name: "TEST_VENUE_1",
     description: "TEST_VENUE_DESCRIPTION",
@@ -99,11 +73,7 @@ const deleteVenueSuccessBuilder = new SwaggerPropertiesBuilder()
   })
   .build();
 
-const deleteVenueFailBuilder = new SwaggerPropertiesBuilder()
-  .makeResult("fail")
-  .makeMessage("venue delete fail, ID: 1")
-  .makeData(null)
-  .build();
+const deleteVenueFailBuilder = new SwaggerPropertiesBuilder().makeFailObj("venue delete fail, ID: 1").build();
 
 export const createVenueSuccessResult = createVenueSuccessBuilder.return();
 

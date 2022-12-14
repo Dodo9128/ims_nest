@@ -4,9 +4,9 @@ export class SwaggerProperties {
     this.message = message;
     this.data = data;
   }
-  private result: object;
-  private message: object;
-  private data: object | null;
+  private readonly result: object;
+  private readonly message: object;
+  private readonly data: object | null;
 
   return() {
     return {
@@ -22,52 +22,41 @@ export class SwaggerPropertiesBuilder {
   public message: object;
   public data: object | null;
 
-  makeResult(result) {
-    switch (result) {
-      case "ok":
-        this.result = {
-          type: "string",
-          description: "result OK",
-          example: "ok",
-        };
-        break;
-      case "fail":
-        this.result = {
-          type: "string",
-          description: "result Fail",
-          example: "fail",
-        };
-        break;
-    }
-    return this;
-  }
-
-  makeMessage(message) {
+  makeOkObj(message, data) {
+    this.result = {
+      type: "string",
+      description: "result OK",
+      example: "ok",
+    };
     this.message = {
       type: "string",
       description: "message",
       example: message,
     };
+    this.data = {
+      type: "Object",
+      description: "data",
+      example: data,
+    };
     return this;
   }
 
-  makeData(data) {
-    switch (data) {
-      case null:
-        this.data = {
-          type: "null",
-          description: "data",
-          example: null,
-        };
-        break;
-      default:
-        this.data = {
-          type: "Object",
-          description: "data",
-          example: data,
-        };
-        break;
-    }
+  makeFailObj(message) {
+    this.result = {
+      type: "string",
+      description: "result Fail",
+      example: "fail",
+    };
+    this.message = {
+      type: "string",
+      description: "message",
+      example: message,
+    };
+    this.data = {
+      type: "null",
+      description: "data",
+      example: null,
+    };
     return this;
   }
 

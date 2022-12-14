@@ -1,5 +1,5 @@
 import { applyDecorators, Delete, Get, Patch, Post } from "@nestjs/common";
-import { ApiBody, ApiOkResponse, ApiOperation, ApiResponse, ApiTags, getSchemaPath } from "@nestjs/swagger";
+import { ApiBody, ApiOkResponse, ApiOperation, ApiResponse } from "@nestjs/swagger";
 import { UpdateVenueDto } from "../../venue/dto/updateVenue.dto";
 import { CreateVenueDto } from "../../venue/dto/createVenue.dto";
 import {
@@ -110,7 +110,6 @@ export const UpdateVenue = () =>
 export const RemoveVenue = () =>
   applyDecorators(
     Delete("deleteVenue/:id"),
-    // ApiTags("Venue"),
     ApiOperation({
       summary: "베뉴 삭제",
       description: "ID를 입력해 해당 아이디의 베뉴 정보를 삭제한다",
