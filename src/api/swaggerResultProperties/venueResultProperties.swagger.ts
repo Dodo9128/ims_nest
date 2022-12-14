@@ -1,6 +1,6 @@
 import { SwaggerPropertiesBuilder } from "../../libs/utils/swaggerPropertiesBuilder";
 
-const createVenueSuccessBuilder = new SwaggerPropertiesBuilder()
+export const createVenueSuccessResult = new SwaggerPropertiesBuilder()
   .makeOkObj("new venue add", {
     id: 1,
     name: "TEST_VENUE_1",
@@ -9,11 +9,12 @@ const createVenueSuccessBuilder = new SwaggerPropertiesBuilder()
     updatedAt: "2022-11-23T09:33:17.554Z",
     registeredAt: "2022-11-23T09:33:17.554Z",
   })
-  .build();
+  .build()
+  .return();
 
-const createVenueFailBuilder = new SwaggerPropertiesBuilder().makeFailObj("new venue add fail").build();
+export const createVenueFailResult = new SwaggerPropertiesBuilder().makeFailObj("new venue add fail").build().return();
 
-const findAllVenueSuccessBuilder = new SwaggerPropertiesBuilder()
+export const findAllVenueSuccessResult = new SwaggerPropertiesBuilder()
   .makeOkObj("return whole venue info", [
     {
       id: 1,
@@ -32,11 +33,15 @@ const findAllVenueSuccessBuilder = new SwaggerPropertiesBuilder()
       registeredAt: "2022-11-23T09:33:17.554Z",
     },
   ])
-  .build();
+  .build()
+  .return();
 
-const findAllVenueFailBuilder = new SwaggerPropertiesBuilder().makeFailObj("return whold venue info fail").build();
+export const findAllVenueFailResult = new SwaggerPropertiesBuilder()
+  .makeFailObj("return whold venue info fail")
+  .build()
+  .return();
 
-const findOneVenueSuccessBuilder = new SwaggerPropertiesBuilder()
+export const findOneVenueSuccessBuilder = new SwaggerPropertiesBuilder()
   .makeOkObj("venue info", {
     id: 1,
     name: "TEST_VENUE_1",
@@ -45,11 +50,15 @@ const findOneVenueSuccessBuilder = new SwaggerPropertiesBuilder()
     updatedAt: "2022-11-23T09:33:17.554Z",
     registeredAt: "2022-11-23T09:33:17.554Z",
   })
-  .build();
+  .build()
+  .return();
 
-const findOneVenueFailBuilder = new SwaggerPropertiesBuilder().makeFailObj("there is no venue info").build();
+export const findOneVenueFailResult = new SwaggerPropertiesBuilder()
+  .makeFailObj("there is no venue info")
+  .build()
+  .return();
 
-const updateVenueSuccessBuilder = new SwaggerPropertiesBuilder()
+export const updateVenueSuccessResult = new SwaggerPropertiesBuilder()
   .makeOkObj("venue update success, ID: 1", {
     id: 1,
     name: "TEST_VENUE_1",
@@ -58,11 +67,15 @@ const updateVenueSuccessBuilder = new SwaggerPropertiesBuilder()
     updatedAt: "2022-11-23T09:33:17.554Z",
     registeredAt: "2022-11-23T09:33:17.554Z",
   })
-  .build();
+  .build()
+  .return();
 
-const updateVenueFailBuilder = new SwaggerPropertiesBuilder().makeFailObj("venue update fail, ID: 1").build();
+export const updateVenueFailResult = new SwaggerPropertiesBuilder()
+  .makeFailObj("venue update fail, ID: 1")
+  .build()
+  .return();
 
-const deleteVenueSuccessBuilder = new SwaggerPropertiesBuilder()
+export const deleteVenueSuccessResult = new SwaggerPropertiesBuilder()
   .makeOkObj("venue delete success, ID: 1", {
     id: 1,
     name: "TEST_VENUE_1",
@@ -71,251 +84,10 @@ const deleteVenueSuccessBuilder = new SwaggerPropertiesBuilder()
     updatedAt: "2022-11-23T09:33:17.554Z",
     registeredAt: "2022-11-23T09:33:17.554Z",
   })
-  .build();
+  .build()
+  .return();
 
-const deleteVenueFailBuilder = new SwaggerPropertiesBuilder().makeFailObj("venue delete fail, ID: 1").build();
-
-export const createVenueSuccessResult = createVenueSuccessBuilder.return();
-
-export const createVenueFailResult = createVenueFailBuilder.return();
-
-export const findAllVenueSuccessResult = findAllVenueSuccessBuilder.return();
-
-export const findAllVenueFailResult = findAllVenueFailBuilder.return();
-
-export const findOneVenueSuccessResult = findOneVenueSuccessBuilder.return();
-
-export const findOneVenueFailResult = findOneVenueFailBuilder.return();
-
-export const updateVenueSuccessResult = updateVenueSuccessBuilder.return();
-
-export const updateVenueFailResult = updateVenueFailBuilder.return();
-
-export const deleteVenueSuccessResult = deleteVenueSuccessBuilder.return();
-
-export const deleteVenueFailResult = deleteVenueFailBuilder.return();
-
-// export const createVenueSuccessResult = {
-//   result: {
-//     type: "string",
-//     description: "result",
-//     example: "ok",
-//   },
-//   message: {
-//     type: "string",
-//     description: "message",
-//     example: "new venue add",
-//   },
-//   data: {
-//     type: "object",
-//     description: "data",
-//     example: {
-//       id: 1,
-//       name: "TEST_VENUE_1",
-//       description: "TEST_VENUE_DESCRIPTION",
-//       updatedAt: "2022-11-23T09:33:17.554Z",
-//       registeredAt: "2022-11-23T09:33:17.554Z",
-//       systems: "[]",
-//     },
-//   },
-// };
-
-// export const createVenueFailResult = {
-//   result: {
-//     type: "string",
-//     description: "result",
-//     example: "fail",
-//   },
-//   message: {
-//     type: "string",
-//     description: "message",
-//     example: "new venue add fail",
-//   },
-//   data: {
-//     type: null,
-//     description: "data",
-//     example: null,
-//   },
-// };
-//
-// export const findAllVenueSuccessResult = {
-//   result: {
-//     type: "string",
-//     description: "result",
-//     example: "ok",
-//   },
-//   message: {
-//     type: "string",
-//     description: "message",
-//     example: "return whole venue info",
-//   },
-//   data: {
-//     type: "array",
-//     description: "data",
-//     example: [
-//       {
-//         id: 1,
-//         name: "test1",
-//         description: "testmaking",
-//         updatedAt: "2022-11-23T09:33:17.554Z",
-//         registeredAt: "2022-11-23T09:33:17.554Z",
-//         systems: "[]",
-//       },
-//       {
-//         id: 2,
-//         name: "test2",
-//         description: "testmaking2",
-//         updatedAt: "2022-11-23T09:33:17.554Z",
-//         registeredAt: "2022-11-23T09:33:17.554Z",
-//         systems: "[1]",
-//       },
-//     ],
-//   },
-// };
-//
-// export const findAllVenueFailResult = {
-//   result: {
-//     type: "string",
-//     description: "result",
-//     example: "fail",
-//   },
-//   message: {
-//     type: "string",
-//     description: "message",
-//     example: "return whole venue info fail",
-//   },
-//   data: {
-//     type: null,
-//     description: "data",
-//     example: null,
-//   },
-// };
-//
-// export const findOneVenueSuccessResult = {
-//   result: {
-//     type: "string",
-//     description: "result",
-//     example: "ok",
-//   },
-//   message: {
-//     type: "string",
-//     description: "message",
-//     example: "venue info",
-//   },
-//   data: {
-//     type: "object",
-//     description: "data",
-//     example: {
-//       id: 1,
-//       name: "TEST_VENUE_1",
-//       description: "TEST_VENUE_DESCRIPTION",
-//       updatedAt: "2022-11-23T09:33:17.554Z",
-//       registeredAt: "2022-11-23T09:33:17.554Z",
-//       systems: "[]",
-//     },
-//   },
-// };
-//
-// export const findOneVenueFailResult = {
-//   result: {
-//     type: "string",
-//     description: "result",
-//     example: "fail",
-//   },
-//   message: {
-//     type: "string",
-//     description: "message",
-//     example: "there is no venue info",
-//   },
-//   data: {
-//     type: null,
-//     description: "data",
-//     example: null,
-//   },
-// };
-//
-// export const updateVenueSuccessResult = {
-//   result: {
-//     type: "string",
-//     description: "result",
-//     example: "ok",
-//   },
-//   message: {
-//     type: "string",
-//     description: "message",
-//     example: "venue update success, ID: 1",
-//   },
-//   data: {
-//     type: "object",
-//     description: "data",
-//     example: {
-//       id: 1,
-//       name: "TEST_VENUE_1",
-//       description: "TEST_VENUE_DESCRIPTION",
-//       updatedAt: "2022-11-23T09:33:17.554Z",
-//       registeredAt: "2022-11-23T09:33:17.554Z",
-//       systems: "[]",
-//     },
-//   },
-// };
-//
-// export const updateVenueFailResult = {
-//   result: {
-//     type: "string",
-//     description: "result",
-//     example: "fail",
-//   },
-//   message: {
-//     type: "string",
-//     description: "message",
-//     example: "venue update fail, ID: 1",
-//   },
-//   data: {
-//     type: null,
-//     description: "data",
-//     example: null,
-//   },
-// };
-//
-// export const deleteVenueSuccessResult = {
-//   result: {
-//     type: "string",
-//     description: "result",
-//     example: "ok",
-//   },
-//   message: {
-//     type: "string",
-//     description: "message",
-//     example: "venue delete success, ID: 1",
-//   },
-//   data: {
-//     type: "object",
-//     description: "data",
-//     example: {
-//       id: 1,
-//       name: "TEST_VENUE_1",
-//       description: "TEST_VENUE_DESCRIPTION",
-//       updatedAt: "2022-11-23T09:33:17.554Z",
-//       registeredAt: "2022-11-23T09:33:17.554Z",
-//       systems: "[]",
-//     },
-//   },
-// };
-//
-// export const deleteVenueFailResult = {
-//   result: {
-//     type: "string",
-//     description: "result",
-//     example: "fail",
-//   },
-//   message: {
-//     type: "string",
-//     description: "message",
-//     example: "venue delete fail, ID: 1",
-//   },
-//   data: {
-//     type: null,
-//     description: "data",
-//     example: null,
-//   },
-// };
+export const deleteVenueFailResult = new SwaggerPropertiesBuilder()
+  .makeFailObj("venue delete fail, ID: 1")
+  .build()
+  .return();
