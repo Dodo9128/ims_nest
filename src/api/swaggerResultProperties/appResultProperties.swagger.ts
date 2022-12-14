@@ -1,17 +1,10 @@
-export const getHelloToIms = {
-  result: {
-    type: "string",
-    description: "result",
-    example: "ok",
-  },
-  message: {
-    type: "string",
-    description: "message",
-    example: "IMS_CONVERTING_TO_NEST_JS",
-  },
-  data: {
-    type: "null",
-    description: "data",
-    example: null,
-  },
-};
+import { SwaggerPropertiesBuilder } from "../../libs/utils/swaggerPropertiesBuilder";
+import { IResultReturn } from "../../libs/utils/functionReturn";
+
+const getHelloToImsBuilder = new SwaggerPropertiesBuilder()
+  .makeResult("ok")
+  .makeMessage("IMS_CONVERTING_TO_NEST_JS")
+  .makeData(null)
+  .build();
+
+export const getHelloToImsReturn = getHelloToImsBuilder.return();
