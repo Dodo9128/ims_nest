@@ -48,7 +48,7 @@ export class VenueRepository extends Repository<Venue> {
   /**
    * ID를 매개로 베뉴를 탐색하여 body의 사항들로 수정한다
    *
-   * @param {string} id
+   * @param {string} id 베뉴 ID
    * @param {UpdateVenueDto} [updateVenue] 업데이트 할 베뉴 정보 object
    */
   async updateVenue(id: string, updateVenue: UpdateVenueDto): Promise<Venue> | null {
@@ -74,7 +74,7 @@ export class VenueRepository extends Repository<Venue> {
   /**
    * ID를 매개로 베뉴를 탐색하여 삭제한다.
    *
-   * @param {string} [id]
+   * @param {string} [id] 베뉴 ID
    */
   async removeVenue(id: string): Promise<Venue> | null {
     const venue = await this.findOneBy({ id: id });
